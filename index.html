@@ -1,1 +1,81 @@
-Frogs will die!!!
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ribbit</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        backgroundColor: '#F5D6BA',
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 300 },
+                debug: false
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+
+      console.log('ribbit')
+
+      this.load.path = 'assets/'
+
+      this.load.image('calm1', 'fibCalm1.png')
+      this.load.image('calm2', 'fibCalm2.png')
+
+    }
+
+    function create ()
+    {
+
+      this.anims.create({
+        key: 'calm',
+        frames: [
+          { key: 'calm1'},
+          { key: 'calm2'}
+        ],
+        frameRate: 4,
+        repeat: -1
+      })
+
+      this.add.sprite(400, 250, 'calm1').setScale(0.4).play('calm')
+
+    }
+
+    function update ()
+    {
+
+
+    }
+
+
+
+
+</script>
+
+</body>
+</html>
