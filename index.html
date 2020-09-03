@@ -34,7 +34,8 @@
         }
     };
 
-
+    var calm
+    var startled
 
     var game = new Phaser.Game(config);
 
@@ -45,14 +46,20 @@
 
       this.load.path = 'assets/'
 
+      // load each of the images used for the sprites
       this.load.image('calm1', 'fibCalm1.png')
       this.load.image('calm2', 'fibCalm2.png')
+      this.load.image('startled1', 'fibStartled1.png')
+      this.load.image('startled2', 'fibStartled2.png')
+      this.load.image('startled3', 'fibStartled3.png')
 
     }
 
     function create ()
     {
 
+      // sets the images to a singular animation
+      // calm phase
       this.anims.create({
         key: 'calm',
         frames: [
@@ -63,13 +70,42 @@
         repeat: -1
       })
 
-      this.add.sprite(400, 250, 'calm1').setScale(0.4).play('calm')
+      // startled phase
+      this.anims.create({
+        key: 'startled',
+        frames: [
+          { key: 'startled1'},
+          { key: 'startled2'},
+          { key: 'startled3'}
+        ],
+        frameRate: 4,
+        repeat: -1
+      })
+
+      calm = this.add.sprite(400, 250, 'calm1').setScale(0.4).play('calm')
+      startled = this.add.sprite(400, 250, 'startled1').setScale(0.4)
+      startled.visible = false
+
+      // input
+      keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+      keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
 
     }
 
     function update ()
     {
 
+        if(keyOne.isDown){
+          startled.visible = false
+          calm.visible = true
+          calm.play('calm')
+        }
+
+        if(keyTwo.isDown){
+          calm.visible = false
+          startled.visible = true
+          startled.play('startled')
+        }
 
     }
 
@@ -80,3 +116,4 @@
 
 </body>
 </html>
+
